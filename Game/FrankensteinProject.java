@@ -133,7 +133,7 @@ public class FrankensteinProject extends JFrame {
         f3.add(randomFloor());
         f3.add(randomFloor());
         w3.add(randomWall());
-        e3.add(randomEnemy());
+        e3.add(randomEnemy(f3.get(1)));
         // level list in order
         floors.add((ArrayList<Floor>) floorsLvlOne);
         walls.add((ArrayList<Wall>) wallsLvlOne);
