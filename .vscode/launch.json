@@ -1,0 +1,84 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein Project_9643034c"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein Project_a4a5455d"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein Project_1f32dfc3"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein Project_2736b13a"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein Project_acac4db0"
+        },
+        {
+            "type": "java",
+            "name": "Launch SoundEffectDemo",
+            "request": "launch",
+            "mainClass": "SoundEffectDemo",
+            "projectName": "Frankenstein Project_acac4db0"
+        },
+        {
+            "type": "java",
+            "name": "Launch SoundPlayer",
+            "request": "launch",
+            "mainClass": "SoundPlayer",
+            "projectName": "Frankenstein Project_acac4db0"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "FrankensteinProject",
+            "projectName": "Frankenstein Project_acac4db0"
+        },
+        {
+            "type": "java",
+            "name": "Launch SoundClipTest",
+            "request": "launch",
+            "mainClass": "SoundClipTest",
+            "projectName": "Frankenstein Project_acac4db0"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "FrankensteinProject",
+            "projectName": "Frankenstein Project_2736b13a"
+        }
+    ]
+}
