@@ -96,7 +96,8 @@ public class FrankensteinProject extends JFrame {
     public int jumpTarget;
     public int level = 0;
     private boolean firstTime = false;
-    Random ran = new Random((long)1);
+    long seed = System.currentTimeMillis();
+    Random ran = new Random(seed);
 
     // constants just to lazy to put them in there
     public final int movementSpeed = 5;
@@ -130,11 +131,22 @@ public class FrankensteinProject extends JFrame {
         scrollCoords[1][0] = Constants.LEVEL_TWO_SCROLL_X;
         scrollCoords[1][1] = Constants.LEVEL_TWO_SCROLL_Y;
         // level 3 objects
-        f3.add(randomFloor());
+      for(int i=ran.nextInt(10);i<=15;i++){
         f3.add(randomFloor());
         w3.add(randomWall());
-        e3.add(randomEnemy(f3.get(1)));
+        if(f3.size()>1)
+        e3.add(randomEnemy(f3.get(ran.nextInt(f3.size()-1))));
+        else
+          e3.add(randomEnemy(f3.get(0)));
+        }
+        // f3.add(randomFloor());
+        // w3.add(randomWall());
+        // e3.add(randomEnemy(f3.get(1)));
         // level list in order
+        floors.add((ArrayList<Floor>) f3);
+        walls.add((ArrayList<Wall>) w3);
+        spikes.add((ArrayList<Enemy>) e3);
+        
         floors.add((ArrayList<Floor>) floorsLvlOne);
         walls.add((ArrayList<Wall>) wallsLvlOne);
         spikes.add((ArrayList<Enemy>) eneimesLvlOne);
@@ -143,9 +155,9 @@ public class FrankensteinProject extends JFrame {
         walls.add((ArrayList<Wall>) wallsLvlTwo);
         spikes.add((ArrayList<Enemy>) enemiesLvlTwo);
 
-        floors.add((ArrayList<Floor>) f3);
-        walls.add((ArrayList<Wall>) w3);
-        spikes.add((ArrayList<Enemy>) e3);
+        // floors.add((ArrayList<Floor>) f3);
+        // walls.add((ArrayList<Wall>) w3);
+        // spikes.add((ArrayList<Enemy>) e3);
 
         // SoundPlayer background = new SoundPlayer("dark-forest");
         // background.playSound();
@@ -345,7 +357,7 @@ public class FrankensteinProject extends JFrame {
             doubleJ.setForeground(Color.WHITE);
 
             levelLabel.setBounds(0, 0, 400, 100);
-            levelLabel.setText(Integer.toString(level+1));
+            levelLabel.setText(Integer.toString(level+1)+"  "+Long.toString(seed));
             levelLabel.setForeground(Color.WHITE);
             this.add(levelLabel);
 
@@ -431,13 +443,10 @@ public class FrankensteinProject extends JFrame {
     }
 
     public Floor randomFloor(){
-      int h = (ran.nextInt(40))+10;
+      int h = 10;
       int w = (ran.nextInt(40))+10;
       int x = ran.nextInt(800);
       int y = ran.nextInt(150)+250;
-      while(h%5!=0){
-        h = (ran.nextInt(40))+10;
-      }
       while(w%5!=0){
         w = (ran.nextInt(40))+10;
       }
@@ -449,14 +458,11 @@ public class FrankensteinProject extends JFrame {
     }
     public Wall randomWall(){
       int h = (ran.nextInt(40))+10;
-      int w = (ran.nextInt(40))+10;
+      int w = 10;
       int x = ran.nextInt(800);
       int y = ran.nextInt(150)+250;
       while(h%5!=0){
         h = (ran.nextInt(40))+10;
-      }
-      while(w%5!=0){
-        w = (ran.nextInt(40))+10;
       }
       while(x%5!=0){
         x = ran.nextInt(800);
@@ -464,6 +470,9 @@ public class FrankensteinProject extends JFrame {
       return new Wall(x,y,w,h,Color.BLACK,false);
     }
     public Enemy randomEnemy(Floor f){
-      return new Enemy((ran.nextInt(f.getwidth())+f.getX()),f.getY()+10,10,10);
+      int width = (f.getwidth()-10)/5;
+      if(width<=0)
+        return new Enemy(f.getX(),f.getY()-10,10,10);
+      return new Enemy((ran.nextInt(width)*5)+f.getX(),f.getY()-10,10,10);
     }
 }
