@@ -5,6 +5,7 @@ import java.awt.Color;
 public class GameObjectBase {
     protected int x;
     protected int y;
+    protected int spikeCount=0;
     protected int width;
     protected int height;
     protected Color color;
@@ -54,6 +55,14 @@ public class GameObjectBase {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setSpikeCount(int s){
+        this.spikeCount = s;
+    }
+
+    public int getSpikeCount(){
+        return this.spikeCount;
     }
 
     /**

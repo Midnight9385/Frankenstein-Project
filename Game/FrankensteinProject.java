@@ -98,6 +98,7 @@ public class FrankensteinProject extends JFrame {
     private boolean firstTime = false;
     long seed = System.currentTimeMillis();
     Random ran = new Random(seed);
+    int scrollChoice;
 
     // constants just to lazy to put them in there
     public final int movementSpeed = 5;
@@ -134,11 +135,17 @@ public class FrankensteinProject extends JFrame {
       for(int i=ran.nextInt(10);i<=15;i++){
         f3.add(randomFloor());
         w3.add(randomWall());
-        if(f3.size()>1)
-        e3.add(randomEnemy(f3.get(ran.nextInt(f3.size()-1))));
-        else
+        
+        if(f3.size()>1){
+            int floorChoice = ran.nextInt(f3.size()-1);
+            while(f3.get(floorChoice).getSpikeCount()>=2)
+                floorChoice = ran.nextInt(f3.size()-1);
+            e3.add(randomEnemy(f3.get(floorChoice)));
+        }else
           e3.add(randomEnemy(f3.get(0)));
         }
+        scrollCoords[0][0] = getSuitableScrollX(f3);
+        scrollCoords[0][1] = getSuitableScrollY(scrollChoice,f3);
         // f3.add(randomFloor());
         // w3.add(randomWall());
         // e3.add(randomEnemy(f3.get(1)));
@@ -446,7 +453,7 @@ public class FrankensteinProject extends JFrame {
       int h = 10;
       int w = (ran.nextInt(40))+10;
       int x = ran.nextInt(800);
-      int y = ran.nextInt(150)+250;
+      int y = ran.nextInt(140)+250;
       while(w%5!=0){
         w = (ran.nextInt(40))+10;
       }
@@ -460,7 +467,7 @@ public class FrankensteinProject extends JFrame {
       int h = (ran.nextInt(40))+10;
       int w = 10;
       int x = ran.nextInt(800);
-      int y = ran.nextInt(150)+250;
+      int y = ran.nextInt(140)+250;
       while(h%5!=0){
         h = (ran.nextInt(40))+10;
       }
@@ -471,8 +478,21 @@ public class FrankensteinProject extends JFrame {
     }
     public Enemy randomEnemy(Floor f){
       int width = (f.getwidth()-10)/5;
+      f.setSpikeCount(f.getSpikeCount()+1);
       if(width<=0)
         return new Enemy(f.getX(),f.getY()-10,10,10);
       return new Enemy((ran.nextInt(width)*5)+f.getX(),f.getY()-10,10,10);
+    }
+
+    public int getSuitableScrollX(List<Floor> f3){
+        scrollChoice=ran.nextInt(f3.size()-1);
+        while(f3.get(scrollChoice).getSpikeCount()!=0){
+            scrollChoice=ran.nextInt(f3.size()-1);
+        }
+        return f3.get(scrollChoice).getX()-Math.abs(((38-f3.get(scrollChoice).getwidth())/2));
+    }
+
+    public int getSuitableScrollY(int i, List<Floor> f3){
+        return f3.get(i).getY()-(35);
     }
 }

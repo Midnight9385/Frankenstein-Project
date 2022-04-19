@@ -9,6 +9,13 @@
             "name": "Launch FrankensteinProject",
             "request": "launch",
             "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein-Project_ad447c86"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
             "projectName": "Frankenstein Project_9643034c"
         },
         {
