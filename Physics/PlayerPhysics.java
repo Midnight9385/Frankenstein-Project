@@ -45,8 +45,8 @@ public class PlayerPhysics {
             }
         }
         if (game.player.onEnemy) {
-            game.player.setX(game.startX);
-            game.player.setY(game.startY);
+            game.player.setX(game.startX[game.level]);
+            game.player.setY(game.startY[game.level]);
             game.player.onEnemy = false;
         }
         if ((game.player.getY() + game.player.getheight()) < game.floorLevel && !game.player.onObject && !game.jump) {

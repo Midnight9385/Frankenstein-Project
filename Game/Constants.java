@@ -6,7 +6,7 @@ public class Constants {
     public static int LEVEL_ONE_SCROLL_Y = 190;
 
     public static int LEVEL_TWO_SCROLL_X = 760;
-    public static int LEVEL_TWO_SCROLL_Y = 105;
+    public static int LEVEL_TWO_SCROLL_Y = 350;
 
     // player start posistions
     public static int PLAYER_ONE_START_X = 0;

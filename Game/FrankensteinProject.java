@@ -7,6 +7,7 @@ import java.io.File;
 import java.net.http.HttpClient.Version;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -42,13 +43,13 @@ public class FrankensteinProject extends JFrame {
     public List<Wall> wallsLvlTwo = new ArrayList<Wall>();
     public List<Enemy> enemiesLvlTwo = new ArrayList<Enemy>();
     // level 3 objects
-    public List<Floor> floors3 = new ArrayList<Floor>();
-    public List<Wall> walls3 = new ArrayList<Wall>();
-    public List<Enemy> enemies3 = new ArrayList<Enemy>();
+    public List<Floor> f3 = new ArrayList<Floor>();
+    public List<Wall> w3 = new ArrayList<Wall>();
+    public List<Enemy> e3 = new ArrayList<Enemy>();
     // level 4 objects
-    public List<Floor> floors4 = new ArrayList<Floor>();
-    public List<Wall> walls4 = new ArrayList<Wall>();
-    public List<Enemy> enemies4 = new ArrayList<Enemy>();
+    public List<Floor> f4 = new ArrayList<Floor>();
+    public List<Wall> w4 = new ArrayList<Wall>();
+    public List<Enemy> e4 = new ArrayList<Enemy>();
 
     // misc
     PhysicsEngine pE = new PhysicsEngine();
@@ -88,13 +89,14 @@ public class FrankensteinProject extends JFrame {
     public boolean doubleJump = false;
     public boolean onScroll = false;
     public boolean doubleJumpTiming = false;
-    private int[] scrollCoords = new int[2];
+    private int[][] scrollCoords = new int[4][2];
     // misc
-    public int startX = Constants.PLAYER_ONE_START_X;
-    public int startY = Constants.PLAYER_ONE_START_Y;
+    public int startX[] = {Constants.PLAYER_ONE_START_X,Constants.PLAYER_TWO_START_X};
+    public int startY[] = {Constants.PLAYER_ONE_START_Y,Constants.PLAYER_TWO_START_Y};
     public int jumpTarget;
     public int level = 0;
     private boolean firstTime = false;
+    Random ran = new Random((long)1);
 
     // constants just to lazy to put them in there
     public final int movementSpeed = 5;
@@ -114,20 +116,24 @@ public class FrankensteinProject extends JFrame {
         // walls.add(new Wall(0, 390, 800, 10, Color.GREEN));
         playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
         // level 1 objects
-        floorsLvlOne.add(new Floor(0, 240, 50, 10, Color.BLACK, false));
+        floorsLvlOne.add(new Floor(0, 240, 49, 10, Color.BLACK, false));
         floorsLvlOne.add(new Floor(100, 240, 50, 10, Color.BLACK, true));
         wallsLvlOne.add(new Wall(100, floorLevel - 20, 10, 20));
         eneimesLvlOne.add(new Enemy(200, 380, 10, 10));
-        scrollCoords[0] = Constants.LEVEL_ONE_SCROLL_X;
-        scrollCoords[1] = Constants.LEVEL_ONE_SCROLL_Y;
+        scrollCoords[0][0] = Constants.LEVEL_ONE_SCROLL_X;
+        scrollCoords[0][1] = Constants.LEVEL_ONE_SCROLL_Y;
         // level 2 objects
         floorsLvlTwo.add(new Floor(0, 330, 758, 10, Color.BLACK, false));
         floorsLvlTwo.add(new Floor(42, 270, 758, 10, Color.black, false));
         floorsLvlTwo.add(new Floor(0, 210, 758, 10, Color.black, false));
         floorsLvlTwo.add(new Floor(42, 160, 758, 10, Color.black, false));
-
+        scrollCoords[1][0] = Constants.LEVEL_TWO_SCROLL_X;
+        scrollCoords[1][1] = Constants.LEVEL_TWO_SCROLL_Y;
         // level 3 objects
-
+        f3.add(randomFloor());
+        f3.add(randomFloor());
+        w3.add(randomWall());
+        e3.add(randomEnemy());
         // level list in order
         floors.add((ArrayList<Floor>) floorsLvlOne);
         walls.add((ArrayList<Wall>) wallsLvlOne);
@@ -137,6 +143,10 @@ public class FrankensteinProject extends JFrame {
         walls.add((ArrayList<Wall>) wallsLvlTwo);
         spikes.add((ArrayList<Enemy>) enemiesLvlTwo);
 
+        floors.add((ArrayList<Floor>) f3);
+        walls.add((ArrayList<Wall>) w3);
+        spikes.add((ArrayList<Enemy>) e3);
+
         // SoundPlayer background = new SoundPlayer("dark-forest");
         // background.playSound();
 
@@ -145,14 +155,21 @@ public class FrankensteinProject extends JFrame {
                 onScroll = false;
                 level++;
                 firstTime = true;
-              if (level == 1 && firstTime) {
-                firstTime = false;
-                scrollCoords[0] = Constants.LEVEL_TWO_SCROLL_X;
-                scrollCoords[1] = Constants.LEVEL_TWO_SCROLL_Y;
-                startX = Constants.PLAYER_TWO_START_X;
-                startY = Constants.PLAYER_TWO_START_Y;
-                player.setX(startX);
-                player.setY(startY);
+              if(firstTime) {
+                switch(level){
+                  case 1:
+                    firstTime = false;
+                    player.setX(startX[level]);
+                    player.setY(startY[level]); break;
+                  case 2:
+                    firstTime = false;
+                    player.setX(startX[level]);
+                    player.setY(startY[level]); break;
+                  case 3:
+                    firstTime = false;
+                    player.setX(startX[level]);
+                    player.setY(startY[level]);
+                }
             }
             }
         });
@@ -305,38 +322,7 @@ public class FrankensteinProject extends JFrame {
 
             g.drawImage(backgroundImage, 0, 0, null);
             // this.setBackground(bg);
-
-            // if (level == 2 && firstTime) {
-            //     firstTime = false;
-            //     this.removeAll();
-            //     scrollCoords[0] = Constants.LEVEL_TWO_SCROLL_X;
-            //     scrollCoords[1] = Constants.LEVEL_TWO_SCROLL_Y;
-            //     startX = Constants.PLAYER_TWO_START_X;
-            //     startY = Constants.PLAYER_TWO_START_Y;
-            //     player.setX(startX);
-            //     player.setY(startY);
-            // }
-            if (level == 2 && firstTime) {
-                firstTime = false;
-                this.removeAll();
-                scrollCoords[0] = Constants.LEVEL_TWO_SCROLL_X;
-                scrollCoords[1] = Constants.LEVEL_TWO_SCROLL_Y;
-                startX = Constants.PLAYER_TWO_START_X;
-                startY = Constants.PLAYER_TWO_START_Y;
-                player.setX(startX);
-                player.setY(startY);
-            }
-            if (level == 3 && firstTime) {
-                firstTime = false;
-                this.removeAll();
-                scrollCoords[0] = Constants.LEVEL_TWO_SCROLL_X;
-                scrollCoords[1] = Constants.LEVEL_TWO_SCROLL_Y;
-                startX = Constants.PLAYER_TWO_START_X;
-                startY = Constants.PLAYER_TWO_START_Y;
-                player.setX(startX);
-                player.setY(startY);
-            }
-            scroll.setBounds(scrollCoords[0], scrollCoords[1], 38, 50);
+            scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 50);
             this.add(scroll);
             // this.add(note);
             playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
@@ -372,7 +358,7 @@ public class FrankensteinProject extends JFrame {
             drawAll(g);
             if (scroll.getX() < player.getX() + player.getwidth() && player.getX() < scroll.getX() + scroll.getWidth()
                     && scroll.getY() < player.getY() + player.getheight()
-                    && player.getY() < scroll.getY() + scroll.getHeight() && !firstTime)
+                    && player.getY() < scroll.getY() + scroll.getHeight())
                 onScroll = true;
             physics();
 
@@ -442,5 +428,23 @@ public class FrankensteinProject extends JFrame {
 
     public void startTimer() {
         timer = new DoubleJumpTimer(0.75, this);
+    }
+
+    public Floor randomFloor(){
+      int h = (ran.nextInt(40))+10;
+      int w = (ran.nextInt(40))+10;
+      while(h%5!=0){
+        h = (ran.nextInt(40))+10;
+      }
+      while(w%5!=0){
+        w = (ran.nextInt(40))+10;
+      }
+      return new Floor((ran.nextInt(800)),(ran.nextInt(150)+250),w,h,Color.BLACK,false);
+    }
+    public Wall randomWall(){
+      return new Wall((ran.nextInt(800)),(ran.nextInt(150)+250),(ran.nextInt(40))+10,(ran.nextInt(40))+10,Color.BLACK,false);
+    }
+    public Enemy randomEnemy(){
+      return new Enemy((ran.nextInt(800)),(ran.nextInt(150)+250),10,10);
     }
 }
