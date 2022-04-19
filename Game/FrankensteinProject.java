@@ -433,18 +433,37 @@ public class FrankensteinProject extends JFrame {
     public Floor randomFloor(){
       int h = (ran.nextInt(40))+10;
       int w = (ran.nextInt(40))+10;
+      int x = ran.nextInt(800);
+      int y = ran.nextInt(150)+250;
       while(h%5!=0){
         h = (ran.nextInt(40))+10;
       }
       while(w%5!=0){
         w = (ran.nextInt(40))+10;
       }
-      return new Floor((ran.nextInt(800)),(ran.nextInt(150)+250),w,h,Color.BLACK,false);
+      while(x%5!=0){
+        x = ran.nextInt(800);
+      }
+      
+      return new Floor(x,y,w,h,Color.BLACK,false);
     }
     public Wall randomWall(){
-      return new Wall((ran.nextInt(800)),(ran.nextInt(150)+250),(ran.nextInt(40))+10,(ran.nextInt(40))+10,Color.BLACK,false);
+      int h = (ran.nextInt(40))+10;
+      int w = (ran.nextInt(40))+10;
+      int x = ran.nextInt(800);
+      int y = ran.nextInt(150)+250;
+      while(h%5!=0){
+        h = (ran.nextInt(40))+10;
+      }
+      while(w%5!=0){
+        w = (ran.nextInt(40))+10;
+      }
+      while(x%5!=0){
+        x = ran.nextInt(800);
+      }
+      return new Wall(x,y,w,h,Color.BLACK,false);
     }
-    public Enemy randomEnemy(){
-      return new Enemy((ran.nextInt(800)),(ran.nextInt(150)+250),10,10);
+    public Enemy randomEnemy(Floor f){
+      return new Enemy((ran.nextInt(f.getwidth())+f.getX()),f.getY()+10,10,10);
     }
 }
