@@ -91,11 +91,10 @@ public class FrankensteinProject extends JFrame {
     public boolean doubleJumpTiming = false;
     private int[][] scrollCoords = new int[4][2];
     // misc
-    public int startX[] = {Constants.PLAYER_ONE_START_X,Constants.PLAYER_TWO_START_X};
-    public int startY[] = {Constants.PLAYER_ONE_START_Y,Constants.PLAYER_TWO_START_Y};
+    public int startX[] = {Constants.PLAYER_ONE_START_X,Constants.PLAYER_TWO_START_X,0,0};
+    public int startY[] = {Constants.PLAYER_ONE_START_Y,Constants.PLAYER_TWO_START_Y,365,365};
     public int jumpTarget;
     public int level = 0;
-    private boolean firstTime = false;
     long seed = System.currentTimeMillis();
     Random ran = new Random(seed);
     int scrollChoice;
@@ -135,24 +134,41 @@ public class FrankensteinProject extends JFrame {
       for(int i=ran.nextInt(10);i<=15;i++){
         f3.add(randomFloor());
         w3.add(randomWall());
-        
-        if(f3.size()>1){
-            int floorChoice = ran.nextInt(f3.size()-1);
-            while(f3.get(floorChoice).getSpikeCount()>=2)
-                floorChoice = ran.nextInt(f3.size()-1);
-            e3.add(randomEnemy(f3.get(floorChoice)));
-        }else
-          e3.add(randomEnemy(f3.get(0)));
         }
-        scrollCoords[0][0] = getSuitableScrollX(f3);
-        scrollCoords[0][1] = getSuitableScrollY(scrollChoice,f3);
+        for(int i=ran.nextInt(f3.size());i<=f3.size()+ran.nextInt(5);i++){
+            int floorChoice = ran.nextInt(f3.size());
+            while(f3.get(floorChoice).getSpikeCount()>=f3.get(floorChoice).getMaxSpikes()){
+                floorChoice = ran.nextInt(f3.size());
+            }
+            e3.add(randomEnemy(f3.get(floorChoice)));
+        }
+        //level 4 objects
+        for(int i=ran.nextInt(10);i<=15;i++){
+            f4.add(randomFloor());
+            w4.add(randomWall());
+        }
+        for(int i=ran.nextInt(f4.size());i<=f4.size()+ran.nextInt(5);i++){
+            int floorChoice = ran.nextInt(f4.size());
+            while(f4.get(floorChoice).getSpikeCount()>=f4.get(floorChoice).getMaxSpikes()){
+                floorChoice = ran.nextInt(f4.size());
+            }
+            e4.add(randomEnemy(f4.get(floorChoice)));
+        }
+        scrollCoords[2][0] = getSuitableScrollX(f3);
+        scrollCoords[2][1] = getSuitableScrollY(scrollChoice,f3);
+        scrollCoords[3][0] = getSuitableScrollX(f4);
+        scrollCoords[3][1] = getSuitableScrollY(scrollChoice,f4);
         // f3.add(randomFloor());
         // w3.add(randomWall());
         // e3.add(randomEnemy(f3.get(1)));
         // level list in order
-        floors.add((ArrayList<Floor>) f3);
-        walls.add((ArrayList<Wall>) w3);
-        spikes.add((ArrayList<Enemy>) e3);
+        // floors.add((ArrayList<Floor>) f3);
+        // walls.add((ArrayList<Wall>) w3);
+        // spikes.add((ArrayList<Enemy>) e3);
+
+        // floors.add((ArrayList<Floor>) f4);
+        // walls.add((ArrayList<Wall>) w4);
+        // spikes.add((ArrayList<Enemy>) e4);
         
         floors.add((ArrayList<Floor>) floorsLvlOne);
         walls.add((ArrayList<Wall>) wallsLvlOne);
@@ -162,9 +178,13 @@ public class FrankensteinProject extends JFrame {
         walls.add((ArrayList<Wall>) wallsLvlTwo);
         spikes.add((ArrayList<Enemy>) enemiesLvlTwo);
 
-        // floors.add((ArrayList<Floor>) f3);
-        // walls.add((ArrayList<Wall>) w3);
-        // spikes.add((ArrayList<Enemy>) e3);
+        floors.add((ArrayList<Floor>) f3);
+        walls.add((ArrayList<Wall>) w3);
+        spikes.add((ArrayList<Enemy>) e3);
+
+        floors.add((ArrayList<Floor>) f4);
+        walls.add((ArrayList<Wall>) w4);
+        spikes.add((ArrayList<Enemy>) e4);
 
         // SoundPlayer background = new SoundPlayer("dark-forest");
         // background.playSound();
@@ -173,23 +193,8 @@ public class FrankensteinProject extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 onScroll = false;
                 level++;
-                firstTime = true;
-              if(firstTime) {
-                switch(level){
-                  case 1:
-                    firstTime = false;
-                    player.setX(startX[level]);
-                    player.setY(startY[level]); break;
-                  case 2:
-                    firstTime = false;
-                    player.setX(startX[level]);
-                    player.setY(startY[level]); break;
-                  case 3:
-                    firstTime = false;
-                    player.setX(startX[level]);
-                    player.setY(startY[level]);
-                }
-            }
+                player.setX(startX[level]);
+                player.setY(startY[level]);
             }
         });
 
@@ -452,7 +457,7 @@ public class FrankensteinProject extends JFrame {
     public Floor randomFloor(){
       int h = 10;
       int w = (ran.nextInt(40))+10;
-      int x = ran.nextInt(800);
+      int x = ran.nextInt(760)+40;
       int y = ran.nextInt(140)+250;
       while(w%5!=0){
         w = (ran.nextInt(40))+10;
@@ -466,7 +471,7 @@ public class FrankensteinProject extends JFrame {
     public Wall randomWall(){
       int h = (ran.nextInt(40))+10;
       int w = 10;
-      int x = ran.nextInt(800);
+      int x = ran.nextInt(760)+40;
       int y = ran.nextInt(140)+250;
       while(h%5!=0){
         h = (ran.nextInt(40))+10;
@@ -477,11 +482,11 @@ public class FrankensteinProject extends JFrame {
       return new Wall(x,y,w,h,Color.BLACK,false);
     }
     public Enemy randomEnemy(Floor f){
-      int width = (f.getwidth()-10)/5;
+      int width = (f.getwidth()-10);
       f.setSpikeCount(f.getSpikeCount()+1);
       if(width<=0)
         return new Enemy(f.getX(),f.getY()-10,10,10);
-      return new Enemy((ran.nextInt(width)*5)+f.getX(),f.getY()-10,10,10);
+      return new Enemy((ran.nextInt(width))+f.getX(),f.getY()-10,10,10);
     }
 
     public int getSuitableScrollX(List<Floor> f3){

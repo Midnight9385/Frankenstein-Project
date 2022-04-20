@@ -8,6 +8,7 @@ public class GameObjectBase {
     protected int spikeCount=0;
     protected int width;
     protected int height;
+    protected int maxSpikes;
     protected Color color;
     protected boolean rigid;
 
@@ -29,6 +30,7 @@ public class GameObjectBase {
         this.height = height;
         this.color = color;
         this.rigid = rigid;
+        this.maxSpikes = width/10;
     }
 
     /**
@@ -95,6 +97,10 @@ public class GameObjectBase {
      */
     public int getwidth() {
         return this.width;
+    }
+
+    public int getMaxSpikes(){
+        return this.maxSpikes;
     }
 
     public Color getColor() {
