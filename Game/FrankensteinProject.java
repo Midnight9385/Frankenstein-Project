@@ -61,8 +61,8 @@ public class FrankensteinProject extends JFrame {
     ImageIcon notes[] = {new ImageIcon("icons/firstnote.png"),
                          new ImageIcon("icons/lvl2.png"),
                          new ImageIcon("icons/lvl3.png"),
-                         new ImageIcon("icons/lvl3.png"),
                          new ImageIcon("icons/lvl4.png"),
+                         new ImageIcon("icons/lvl5.png"),
                          new ImageIcon("icons/lvl5.png")
                         };
     ImageIcon scrollImage = new ImageIcon("icons/scroll.png");
