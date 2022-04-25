@@ -59,8 +59,8 @@ public class FrankensteinProject extends JFrame {
 
     // images
     ImageIcon notes[] = {new ImageIcon("icons/firstnote.png"),
-                         new ImageIcon("icons/lvl1.png"),
                          new ImageIcon("icons/lvl2.png"),
+                         new ImageIcon("icons/lvl3.png"),
                          new ImageIcon("icons/lvl3.png"),
                          new ImageIcon("icons/lvl4.png"),
                          new ImageIcon("icons/lvl5.png")
@@ -96,7 +96,7 @@ public class FrankensteinProject extends JFrame {
     public int startY[] = {Constants.PLAYER_ONE_START_Y,Constants.PLAYER_TWO_START_Y,365,365};
     public int jumpTarget;
     public int level = 0;
-    long seed = System.currentTimeMillis();
+    long seed = /*Long.valueOf(1650898065512);*/System.currentTimeMillis();
     Random ran = new Random(seed);
     int scrollChoice;
 
@@ -118,8 +118,8 @@ public class FrankensteinProject extends JFrame {
         // walls.add(new Wall(0, 390, 800, 10, Color.GREEN));
         playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
         // level 1 objects
-        floorsLvlOne.add(new Floor(0, 240, 49, 10, Color.BLACK, false));
-        floorsLvlOne.add(new Floor(100, 240, 50, 10, Color.BLACK, true));
+        //floorsLvlOne.add(new Floor(0, 240, 49, 10, Color.BLACK, false));
+        //floorsLvlOne.add(new Floor(100, 240, 50, 10, Color.BLACK, true));
         wallsLvlOne.add(new Wall(100, floorLevel - 20, 10, 20));
         eneimesLvlOne.add(new Enemy(200, 380, 10, 10));
         //scrollCoords[0][0] = Constants.LEVEL_ONE_SCROLL_X;
@@ -512,7 +512,7 @@ public class FrankensteinProject extends JFrame {
     public Floor randomFloor(){
       int h = 10;
       int w = (ran.nextInt(40))+10;
-      int x = ran.nextInt(760)+40;
+      int x = ran.nextInt(710)+90;
       int y = ran.nextInt(140)+250;
       while(w%5!=0){
         w = (ran.nextInt(40))+10;
@@ -526,7 +526,7 @@ public class FrankensteinProject extends JFrame {
     public Wall randomWall(){
       int h = (ran.nextInt(40))+10;
       int w = 10;
-      int x = ran.nextInt(760)+40;
+      int x = ran.nextInt(710)+90;
       int y = ran.nextInt(140)+250;
       while(h%5!=0){
         h = (ran.nextInt(40))+10;
