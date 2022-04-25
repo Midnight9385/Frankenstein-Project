@@ -9,6 +9,10 @@ import javax.swing.*;
 // Hence, we use a Swing application.
 public class SoundPlayer extends JFrame {
 
+   /**
+    *
+    */
+   private static final long serialVersionUID = 1384723297941390677L;
    private String path;
    private URL url;
    private AudioInputStream audioIn;

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SoundPlayer",
+            "request": "launch",
+            "mainClass": "sounds.SoundPlayer",
+            "projectName": "Frankenstein-Project_ff81b8fd"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrankensteinProject",
+            "request": "launch",
+            "mainClass": "Game.FrankensteinProject",
+            "projectName": "Frankenstein-Project_ff81b8fd"
+        },
+        {
+            "type": "java",
             "name": "Launch FrankensteinProject",
             "request": "launch",
             "mainClass": "Game.FrankensteinProject",

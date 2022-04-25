@@ -2,9 +2,7 @@ package Game;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.ImageObserver;
 import java.io.File;
-import java.net.http.HttpClient.Version;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,11 +12,14 @@ import javax.swing.*;
 
 import GameObjects.*;
 import Physics.*;
-import sounds.*;
-import sounds.SoundPlayer.Volume;
 import GameObjects.GameObjectBase.Direction;
 
 public class FrankensteinProject extends JFrame {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6537893818175455795L;
 
     DrawPanel drawPanel = new DrawPanel();
 
@@ -121,15 +122,39 @@ public class FrankensteinProject extends JFrame {
         floorsLvlOne.add(new Floor(100, 240, 50, 10, Color.BLACK, true));
         wallsLvlOne.add(new Wall(100, floorLevel - 20, 10, 20));
         eneimesLvlOne.add(new Enemy(200, 380, 10, 10));
-        scrollCoords[0][0] = Constants.LEVEL_ONE_SCROLL_X;
-        scrollCoords[0][1] = Constants.LEVEL_ONE_SCROLL_Y;
+        //scrollCoords[0][0] = Constants.LEVEL_ONE_SCROLL_X;
+        //scrollCoords[0][1] = Constants.LEVEL_ONE_SCROLL_Y;
+        for(int i=ran.nextInt(10);i<=15;i++){
+            floorsLvlOne.add(randomFloor());
+            wallsLvlOne.add(randomWall());
+            }
+            for(int i=ran.nextInt(floorsLvlOne.size());i<=floorsLvlOne.size()+ran.nextInt(5);i++){
+                int floorChoice = ran.nextInt(floorsLvlOne.size());
+                while(floorsLvlOne.get(floorChoice).getSpikeCount()>=floorsLvlOne.get(floorChoice).getMaxSpikes()){
+                    floorChoice = ran.nextInt(floorsLvlOne.size());
+                }
+                eneimesLvlOne.add(randomEnemy(floorsLvlOne.get(floorChoice)));
+            }
+            
         // level 2 objects
-        floorsLvlTwo.add(new Floor(0, 330, 758, 10, Color.BLACK, false));
-        floorsLvlTwo.add(new Floor(42, 270, 758, 10, Color.black, false));
-        floorsLvlTwo.add(new Floor(0, 210, 758, 10, Color.black, false));
-        floorsLvlTwo.add(new Floor(42, 160, 758, 10, Color.black, false));
-        scrollCoords[1][0] = Constants.LEVEL_TWO_SCROLL_X;
-        scrollCoords[1][1] = Constants.LEVEL_TWO_SCROLL_Y;
+        // floorsLvlTwo.add(new Floor(0, 330, 758, 10, Color.BLACK, false));
+        // floorsLvlTwo.add(new Floor(42, 270, 758, 10, Color.black, false));
+        // floorsLvlTwo.add(new Floor(0, 210, 758, 10, Color.black, false));
+        // floorsLvlTwo.add(new Floor(42, 160, 758, 10, Color.black, false));
+        
+
+        for(int i=ran.nextInt(10);i<=15;i++){
+            floorsLvlTwo.add(randomFloor());
+            wallsLvlTwo.add(randomWall());
+            }
+            for(int i=ran.nextInt(floorsLvlTwo.size());i<=floorsLvlTwo.size()+ran.nextInt(5);i++){
+                int floorChoice = ran.nextInt(floorsLvlTwo.size());
+                while(floorsLvlTwo.get(floorChoice).getSpikeCount()>=floorsLvlTwo.get(floorChoice).getMaxSpikes()){
+                    floorChoice = ran.nextInt(floorsLvlTwo.size());
+                }
+                enemiesLvlTwo.add(randomEnemy(floorsLvlTwo.get(floorChoice)));
+            }
+            
         // level 3 objects
       for(int i=ran.nextInt(10);i<=15;i++){
         f3.add(randomFloor());
@@ -154,6 +179,10 @@ public class FrankensteinProject extends JFrame {
             }
             e4.add(randomEnemy(f4.get(floorChoice)));
         }
+        scrollCoords[0][0] = getSuitableScrollX(floorsLvlOne);
+        scrollCoords[0][1] = getSuitableScrollY(scrollChoice,floorsLvlOne);
+        scrollCoords[1][0] = getSuitableScrollX(floorsLvlTwo);
+        scrollCoords[1][1] = getSuitableScrollY(scrollChoice,floorsLvlTwo);
         scrollCoords[2][0] = getSuitableScrollX(f3);
         scrollCoords[2][1] = getSuitableScrollY(scrollChoice,f3);
         scrollCoords[3][0] = getSuitableScrollX(f4);
@@ -215,6 +244,11 @@ public class FrankensteinProject extends JFrame {
         // });
 
         Action leftAction = new AbstractAction() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -2576054438128869082L;
+
             public void actionPerformed(ActionEvent e) {
                 boolean check = false;
                 for (int z = 0; z < walls.get(level).size(); z++) {
@@ -257,6 +291,11 @@ public class FrankensteinProject extends JFrame {
         setVisible(true);
 
         Action rightAction = new AbstractAction() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = -7650377710184326334L;
+
             public void actionPerformed(ActionEvent e) {
                 boolean check = false;
                 for (int z = 0; z < walls.get(level).size(); z++) {
@@ -296,6 +335,11 @@ public class FrankensteinProject extends JFrame {
         setVisible(true);
 
         Action downAction = new AbstractAction() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 5887534192360011425L;
+
             public void actionPerformed(ActionEvent e) {
 
                 drawPanel.repaint();
@@ -313,6 +357,11 @@ public class FrankensteinProject extends JFrame {
         setVisible(true);
 
         Action upAction = new AbstractAction() {
+            /**
+             *
+             */
+            private static final long serialVersionUID = 8495455407047316652L;
+
             public void actionPerformed(ActionEvent e) {
                 if (!jump && !doubleJump && !justJumped) {
                     jump = true;
@@ -339,6 +388,11 @@ public class FrankensteinProject extends JFrame {
     }
 
     private class DrawPanel extends JPanel {
+        /**
+         *
+         */
+        private static final long serialVersionUID = -3530164898710369207L;
+
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
@@ -346,7 +400,8 @@ public class FrankensteinProject extends JFrame {
 
             g.drawImage(backgroundImage, 0, 0, null);
             // this.setBackground(bg);
-            scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 50);
+            scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 36);
+            scroll.setBackground(Color.WHITE);
             this.add(scroll);
             // this.add(note);
             playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
@@ -498,6 +553,6 @@ public class FrankensteinProject extends JFrame {
     }
 
     public int getSuitableScrollY(int i, List<Floor> f3){
-        return f3.get(i).getY()-(35);
+        return f3.get(i).getY()-(36);
     }
 }

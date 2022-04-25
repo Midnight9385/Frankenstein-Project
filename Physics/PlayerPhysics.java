@@ -1,7 +1,6 @@
 package Physics;
 
 import Game.FrankensteinProject;
-import GameObjects.GameObjectBase.Direction;
 
 public class PlayerPhysics {
     public void physics(FrankensteinProject game) {
