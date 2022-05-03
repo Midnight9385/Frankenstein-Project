@@ -97,7 +97,7 @@ public class FrankensteinProject extends JFrame {
     JButton leaveNote = new JButton(new ImageIcon("icons/next.png"));
     JButton mute = new JButton("mute");
     JButton play = new JButton("play music");
-
+    JButton restart = new JButton("Restart");
     // pick up items
     JLabel note = new JLabel(notes[0]);
     JLabel scroll = new JLabel(scrollImage);
@@ -312,13 +312,22 @@ public class FrankensteinProject extends JFrame {
         leaveNote.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onScroll = false;
-                if(level == 7){
+                if(level == 0){
                      lastLevel = true;;
                 }else{
                 level++;
                 player.setX(startX[level]);
                 player.setY(startY[level]);
                 }
+            }
+        });
+
+      restart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+              level=7;
+              lastLevel = false;
+              player.setX(startX[0]);
+              player.setY(startY[0]);
             }
         });
 
@@ -496,11 +505,15 @@ public class FrankensteinProject extends JFrame {
             g.drawImage(backgroundImage, 0, 0, null);
             if(lastLevel){
                 doubleJ.setText("You have made it through Frankenstein's monsters journey. Thank you for going on this quest!");
-                Font fnt2 = new Font("Calibri",Font.BOLD,16);
+                Font fnt2 = new Font("Calibri",Font.BOLD,12);
                 doubleJ.setBounds(50,100,700,100);
                 doubleJ.setForeground(Color.WHITE);
                 doubleJ.setFont(fnt2);
                 this.add(doubleJ);
+              restart.setBounds(250,200,300,50);
+              restart.setForeground(Color.BLACK);
+              restart.setBackground(Color.white);
+             this.add(restart);
             }else{
                 
             // this.setBackground(bg);
