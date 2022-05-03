@@ -312,7 +312,7 @@ public class FrankensteinProject extends JFrame {
         leaveNote.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onScroll = false;
-                if(level == 0){
+                if(level == 7){
                      lastLevel = true;;
                 }else{
                 level++;
