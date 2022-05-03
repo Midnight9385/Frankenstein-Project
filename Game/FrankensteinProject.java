@@ -110,13 +110,14 @@ public class FrankensteinProject extends JFrame {
     public boolean doubleJumpTiming = false;
     private int[][] scrollCoords = new int[8][2];
     // misc
-    public int startX[] = { Constants.PLAYER_ONE_START_X, Constants.PLAYER_TWO_START_X, 0, 0 };
-    public int startY[] = { Constants.PLAYER_ONE_START_Y, Constants.PLAYER_TWO_START_Y, 365, 365 };
+    public int startX[] = { Constants.PLAYER_ONE_START_X, Constants.PLAYER_TWO_START_X, 0, 0,0,0,0,0,0,0,0,0 };
+    public int startY[] = { Constants.PLAYER_ONE_START_Y, Constants.PLAYER_TWO_START_Y, 365, 365, 365, 365, 365, 365, 365, 365, 365, 365 };
     public int jumpTarget;
     public int level = 0;
     long seed = /* Long.valueOf(1650898065512); */System.currentTimeMillis();
     Random ran = new Random(seed);
     int scrollChoice;
+    boolean lastLevel = false;
 
     // constants just to lazy to put them in there
     public final int movementSpeed = 5;
@@ -124,6 +125,7 @@ public class FrankensteinProject extends JFrame {
     public final int gravitySpeed = 1;
     public final int floorLevel = 390;
     public final int jumpHieght = 100;
+    public final int max_Level = 9;
 
     public FrankensteinProject() {
 
@@ -310,9 +312,13 @@ public class FrankensteinProject extends JFrame {
         leaveNote.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onScroll = false;
+                if(level == 0){
+                     lastLevel = true;;
+                }else{
                 level++;
                 player.setX(startX[level]);
                 player.setY(startY[level]);
+                }
             }
         });
 
@@ -488,6 +494,15 @@ public class FrankensteinProject extends JFrame {
             this.removeAll();
 
             g.drawImage(backgroundImage, 0, 0, null);
+            if(lastLevel){
+                doubleJ.setText("You have made it through Frankenstein's monsters journey. Thank you for going on this quest!");
+                Font fnt2 = new Font("Calibri",Font.BOLD,16);
+                doubleJ.setBounds(50,100,700,100);
+                doubleJ.setForeground(Color.WHITE);
+                doubleJ.setFont(fnt2);
+                this.add(doubleJ);
+            }else{
+                
             // this.setBackground(bg);
             scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 36);
             scroll.setBackground(Color.WHITE);
@@ -532,7 +547,7 @@ public class FrankensteinProject extends JFrame {
                     && player.getY() < scroll.getY() + scroll.getHeight())
                 onScroll = true;
             physics();
-
+        }
             try {
                 if (jump)
                     Thread.sleep((long) 2.5);
