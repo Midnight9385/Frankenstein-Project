@@ -51,19 +51,19 @@ public class FrankensteinProject extends JFrame {
     public List<Floor> f4 = new ArrayList<Floor>();
     public List<Wall> w4 = new ArrayList<Wall>();
     public List<Enemy> e4 = new ArrayList<Enemy>();
-    //lvl 5
+    // lvl 5
     public List<Floor> f5 = new ArrayList<Floor>();
     public List<Wall> w5 = new ArrayList<Wall>();
     public List<Enemy> e5 = new ArrayList<Enemy>();
-    //lvl6
+    // lvl6
     public List<Floor> f6 = new ArrayList<Floor>();
     public List<Wall> w6 = new ArrayList<Wall>();
     public List<Enemy> e6 = new ArrayList<Enemy>();
-    //lvl7
+    // lvl7
     public List<Floor> f7 = new ArrayList<Floor>();
     public List<Wall> w7 = new ArrayList<Wall>();
     public List<Enemy> e7 = new ArrayList<Enemy>();
-    //last lvl
+    // last lvl
     public List<Floor> f8 = new ArrayList<Floor>();
     public List<Wall> w8 = new ArrayList<Wall>();
     public List<Enemy> e8 = new ArrayList<Enemy>();
@@ -81,7 +81,7 @@ public class FrankensteinProject extends JFrame {
             new ImageIcon("icons/lvl5.png"),
             new ImageIcon("icons/lvl6.png"),
             new ImageIcon("icons/lvl7.png"),
-            new ImageIcon("icons/conclusion.png")             
+            new ImageIcon("icons/conclusion.png")
     };
     ImageIcon scrollImage = new ImageIcon("icons/scroll.png");
 
@@ -110,8 +110,9 @@ public class FrankensteinProject extends JFrame {
     public boolean doubleJumpTiming = false;
     private int[][] scrollCoords = new int[8][2];
     // misc
-    public int startX[] = { Constants.PLAYER_ONE_START_X, Constants.PLAYER_TWO_START_X, 0, 0,0,0,0,0,0,0,0,0 };
-    public int startY[] = { Constants.PLAYER_ONE_START_Y, Constants.PLAYER_TWO_START_Y, 365, 365, 365, 365, 365, 365, 365, 365, 365, 365 };
+    public int startX[] = { Constants.PLAYER_ONE_START_X, Constants.PLAYER_TWO_START_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public int startY[] = { Constants.PLAYER_ONE_START_Y, Constants.PLAYER_TWO_START_Y, 365, 365, 365, 365, 365, 365,
+            365, 365, 365, 365 };
     public int jumpTarget;
     public int level = 0;
     long seed = /* Long.valueOf(1650898065512); */System.currentTimeMillis();
@@ -198,8 +199,8 @@ public class FrankensteinProject extends JFrame {
             }
             e4.add(randomEnemy(f4.get(floorChoice)));
         }
-      //lvl 5
-      for (int i = ran.nextInt(10); i <= 15; i++) {
+        // lvl 5
+        for (int i = ran.nextInt(10); i <= 15; i++) {
             f5.add(randomFloor());
             w5.add(randomWall());
         }
@@ -210,8 +211,8 @@ public class FrankensteinProject extends JFrame {
             }
             e5.add(randomEnemy(f5.get(floorChoice)));
         }
-      //lvl6
-      for (int i = ran.nextInt(10); i <= 15; i++) {
+        // lvl6
+        for (int i = ran.nextInt(10); i <= 15; i++) {
             f6.add(randomFloor());
             w6.add(randomWall());
         }
@@ -222,8 +223,8 @@ public class FrankensteinProject extends JFrame {
             }
             e6.add(randomEnemy(f6.get(floorChoice)));
         }
-      //lvl7
-      for (int i = ran.nextInt(10); i <= 15; i++) {
+        // lvl7
+        for (int i = ran.nextInt(10); i <= 15; i++) {
             f7.add(randomFloor());
             w7.add(randomWall());
         }
@@ -234,8 +235,8 @@ public class FrankensteinProject extends JFrame {
             }
             e7.add(randomEnemy(f7.get(floorChoice)));
         }
-      //lvl8
-      for (int i = ran.nextInt(10); i <= 15; i++) {
+        // lvl8
+        for (int i = ran.nextInt(10); i <= 15; i++) {
             f8.add(randomFloor());
             w8.add(randomWall());
         }
@@ -290,19 +291,19 @@ public class FrankensteinProject extends JFrame {
         walls.add((ArrayList<Wall>) w4);
         spikes.add((ArrayList<Enemy>) e4);
 
-      floors.add((ArrayList<Floor>) f5);
+        floors.add((ArrayList<Floor>) f5);
         walls.add((ArrayList<Wall>) w5);
         spikes.add((ArrayList<Enemy>) e5);
 
-      floors.add((ArrayList<Floor>) f6);
+        floors.add((ArrayList<Floor>) f6);
         walls.add((ArrayList<Wall>) w6);
         spikes.add((ArrayList<Enemy>) e6);
 
-      floors.add((ArrayList<Floor>) f7);
+        floors.add((ArrayList<Floor>) f7);
         walls.add((ArrayList<Wall>) w7);
         spikes.add((ArrayList<Enemy>) e7);
 
-      floors.add((ArrayList<Floor>) f8);
+        floors.add((ArrayList<Floor>) f8);
         walls.add((ArrayList<Wall>) w8);
         spikes.add((ArrayList<Enemy>) e8);
 
@@ -312,22 +313,23 @@ public class FrankensteinProject extends JFrame {
         leaveNote.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onScroll = false;
-                if(level == 7){
-                     lastLevel = true;;
-                }else{
-                level++;
-                player.setX(startX[level]);
-                player.setY(startY[level]);
+                if (level == 7) {
+                    lastLevel = true;
+                    ;
+                } else {
+                    level++;
+                    player.setX(startX[level]);
+                    player.setY(startY[level]);
                 }
             }
         });
 
-      restart.addActionListener(new ActionListener() {
+        restart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-              level=7;
-              lastLevel = false;
-              player.setX(startX[0]);
-              player.setY(startY[0]);
+                level = 7;
+                lastLevel = false;
+                player.setX(startX[0]);
+                player.setY(startY[0]);
             }
         });
 
@@ -503,64 +505,66 @@ public class FrankensteinProject extends JFrame {
             this.removeAll();
 
             g.drawImage(backgroundImage, 0, 0, null);
-            if(lastLevel){
-                doubleJ.setText("You have made it through Frankenstein's monsters journey. Thank you for going on this quest!");
-                Font fnt2 = new Font("Calibri",Font.BOLD,12);
-                doubleJ.setBounds(50,100,700,100);
+            if (lastLevel) {
+                doubleJ.setText(
+                        "You have made it through Frankenstein's monsters journey. Thank you for going on this quest!");
+                Font fnt2 = new Font("Calibri", Font.BOLD, 12);
+                doubleJ.setBounds(50, 100, 700, 100);
                 doubleJ.setForeground(Color.WHITE);
                 doubleJ.setFont(fnt2);
                 this.add(doubleJ);
-              restart.setBounds(250,200,300,50);
-              restart.setForeground(Color.BLACK);
-              restart.setBackground(Color.white);
-             this.add(restart);
-            }else{
-                
-            // this.setBackground(bg);
-            scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 36);
-            scroll.setBackground(Color.WHITE);
-            this.add(scroll);
-            // this.add(note);
-            playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
-            this.add(playerLabel);
-            // this.add(mute);
-            // this.add(play);
-            if (onScroll) {
-                note.setIcon(notes[level]);
-                leaveNote.setBounds(419, 290, 50, 63);
-                if (level == 3) {
-                    leaveNote.setBounds(419, 310, 50, 63);
-                }
-                this.add(leaveNote);
-                scroll.setBounds(-900, -900, 0, 0);
-                note.setBounds(250, 25, 289, 365);
-                this.add(note);
+                restart.setBounds(250, 200, 300, 50);
+                restart.setForeground(Color.BLACK);
+                restart.setBackground(Color.white);
+                this.add(restart);
             } else {
-                this.remove(note);
-                this.remove(leaveNote);
+
+                // this.setBackground(bg);
+                scroll.setBounds(scrollCoords[level][0], scrollCoords[level][1], 38, 36);
+                scroll.setBackground(Color.WHITE);
+                this.add(scroll);
+                // this.add(note);
+                playerLabel.setBounds(player.getX(), player.getY(), player.getwidth(), player.getheight());
+                this.add(playerLabel);
+                // this.add(mute);
+                // this.add(play);
+                if (onScroll) {
+                    note.setIcon(notes[level]);
+                    leaveNote.setBounds(419, 290, 50, 63);
+                    if (level == 3) {
+                        leaveNote.setBounds(419, 310, 50, 63);
+                    }
+                    this.add(leaveNote);
+                    scroll.setBounds(-900, -900, 0, 0);
+                    note.setBounds(250, 25, 289, 365);
+                    this.add(note);
+                } else {
+                    this.remove(note);
+                    this.remove(leaveNote);
+                }
+                // doubleJ.setText(level + "");
+                doubleJ.setBounds(0, 0, 800, 200);
+                doubleJ.setForeground(Color.WHITE);
+
+                levelLabel.setBounds(0, 0, 400, 100);
+                levelLabel.setText(Integer.toString(level + 1) + "  " + Long.toString(seed));
+                levelLabel.setForeground(Color.WHITE);
+                this.add(levelLabel);
+
+                // doubleJ.setText(doubleJ.getText() + " " + new Boolean(doubleJump).toString()
+                // + " "
+                // + new Boolean(jump).toString() + " "
+                // + new Boolean(justJumped).toString());
+                this.add(doubleJ);
+                // this.add(background);
+                drawAll(g);
+                if (scroll.getX() < player.getX() + player.getwidth()
+                        && player.getX() < scroll.getX() + scroll.getWidth()
+                        && scroll.getY() < player.getY() + player.getheight()
+                        && player.getY() < scroll.getY() + scroll.getHeight())
+                    onScroll = true;
+                physics();
             }
-            // doubleJ.setText(level + "");
-            doubleJ.setBounds(0, 0, 800, 200);
-            doubleJ.setForeground(Color.WHITE);
-
-            levelLabel.setBounds(0, 0, 400, 100);
-            levelLabel.setText(Integer.toString(level + 1) + "  " + Long.toString(seed));
-            levelLabel.setForeground(Color.WHITE);
-            this.add(levelLabel);
-
-            // doubleJ.setText(doubleJ.getText() + " " + new Boolean(doubleJump).toString()
-            // + " "
-            // + new Boolean(jump).toString() + " "
-            // + new Boolean(justJumped).toString());
-            this.add(doubleJ);
-            // this.add(background);
-            drawAll(g);
-            if (scroll.getX() < player.getX() + player.getwidth() && player.getX() < scroll.getX() + scroll.getWidth()
-                    && scroll.getY() < player.getY() + player.getheight()
-                    && player.getY() < scroll.getY() + scroll.getHeight())
-                onScroll = true;
-            physics();
-        }
             try {
                 if (jump)
                     Thread.sleep((long) 2.5);
